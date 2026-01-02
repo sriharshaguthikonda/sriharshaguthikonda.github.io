@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name — Doctor & Neuroscience</title>
+  <meta name="description" content="Personal website: profile, CV, research interests, and contact." />
+
+  <!-- Social preview (optional) -->
+  <meta property="og:title" content="Your Name" />
+  <meta property="og:description" content="Doctor & budding neuroscientist — profile, CV, research, contact." />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #111826;
+      --text: #e6eefc;
+      --muted: #b8c3d9;
+      --line: rgba(230, 238, 252, 0.12);
+      --accent: #7aa2ff;
+      --accent2: #45d6b9;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #ffffff;
+        --card: #f6f8fc;
+        --text: #0b0f14;
+        --muted: #445066;
+        --line: rgba(11, 15, 20, 0.12);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(122,162,255,0.18), transparent 60%),
+                  radial-gradient(1200px 600px at 80% 10%, rgba(69,214,185,0.14), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.5;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 18px 60px; }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: grid;
+      gap: 2px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.2px;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.03);
+      font-size: 14px;
+    }
+
+    .chip strong { font-weight: 600; }
+
+    main { padding-top: 22px; }
+
+    .hero {
+      display: grid;
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    }
+
+    .hero h2 { margin: 0; font-size: 28px; }
+    .hero p { margin: 0; color: var(--muted); }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      font-weight: 600;
+    }
+
+    .btn.primary {
+      border-color: rgba(122,162,255,0.55);
+      background: linear-gradient(135deg, rgba(122,162,255,0.25), rgba(69,214,185,0.18));
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 860px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 22px; }
+      .brand h1 { font-size: 24px; }
+    }
+
+    section {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    section h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); }
+    li { margin: 6px 0; }
+
+    footer {
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .small { font-size: 13px; color: var(--muted); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1>Your Name</h1>
+        <p>Doctor • Neuroscience • Neurodevelopment ↔ Neurodegeneration</p>
+      </div>
+      <nav aria-label="Primary">
+        <a class="chip" href="#about"><strong>About</strong></a>
+        <a class="chip" href="#cv"><strong>CV</strong></a>
+        <a class="chip" href="#research"><strong>Research</strong></a>
+        <a class="chip" href="#contact"><strong>Contact</strong></a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero" id="top">
+        <h2>Hi — I’m Your Name.</h2>
+        <p>
+          Short, punchy intro (2–3 lines). Say what you do, what you’re aiming for, and what you’re interested in.
+          Keep it human.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Contact</a>
+          <a class="btn" href="#cv">Download CV</a>
+          <a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a class="btn" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+        <div class="small">
+          Tip: keep this site <span class="mono">static</span> (HTML/CSS) for maximum speed and zero maintenance.
+        </div>
+      </div>
+
+      <div class="grid">
+        <section id="about">
+          <h3>About</h3>
+          <p class="small">
+            Write 5–8 lines: your background, what you’ve worked on, and where you’re heading. Add 2–3 specific keywords.
+          </p>
+          <ul>
+            <li>Current focus: (e.g., clinical attachments / PLAB 2 / research direction)</li>
+            <li>Interests: (e.g., stem-cell therapies, gene therapy, neurodevelopmental biology)</li>
+            <li>Location: (e.g., UK / India — whatever you want to show publicly)</li>
+          </ul>
+        </section>
+
+        <section id="cv">
+          <h3>CV</h3>
+          <p class="small">
+            Put your CV PDF in the same repo as this file and name it:
+            <span class="mono">Dr_Sri_Harsha_Guthikonda_CV.pdf</span> (or change the link below).
+          </p>
+          <p>
+            <a class="btn primary" href="Dr_Sri_Harsha_Guthikonda_CV.pdf" target="_blank" rel="noreferrer">Open CV (PDF)</a>
+          </p>
+          <p class="small">
+            Optional: add a 1-page “Clinical attachment pack” PDF (CV + cover letter + certificates) and link it here.
+          </p>
+        </section>
+
+        <section id="research">
+          <h3>Research</h3>
+          <ul>
+            <li><strong>Theme 1:</strong> (1–2 lines) — what problem, why it matters.</li>
+            <li><strong>Theme 2:</strong> (1–2 lines) — what methods / models you use.</li>
+            <li><strong>Theme 3:</strong> (1–2 lines) — collaborations, datasets, trials, etc.</li>
+          </ul>
+          <p class="small">Add links to: Google Scholar / ORCID / PubMed / lab pages.</p>
+        </section>
+
+        <section id="contact">
+          <h3>Contact</h3>
+          <p class="small">
+            Keep contact simple. One email, plus 1–2 professional links.
+          </p>
+          <p>
+            Email: <a href="mailto:your.email@example.com">your.email@example.com</a><br />
+            LinkedIn: <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">your-link</a><br />
+            ORCID: <a href="https://orcid.org/" target="_blank" rel="noreferrer">your-orcid</a>
+          </p>
+        </section>
+      </div>
+
+      <footer>
+        <div>© <span id="y"></span> Your Name • Built with plain HTML • Hosted for free</div>
+        <div class="small">Last updated: replace this with a date when you edit.</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
