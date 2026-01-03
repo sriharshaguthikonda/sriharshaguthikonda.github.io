@@ -83,7 +83,7 @@
     <section aria-label="Featured video" style="margin: 24px 0;">
       <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid var(--border); background: #0f141d;">
         <iframe
-          src="https://www.youtube.com/embed/NM3tevGJHVY"
+          src="https://www.youtube.com/embed/IN_vARUTQxU"
           title="YouTube video player"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -104,6 +104,19 @@
             <li><strong>Communication & leadership:</strong> led journal club discussions, organised workshops/meetings; cross-team coordination; clear scientific writing and presentation.</li>
           </ul>
         </section>
+
+
+
+                
+        <section>
+          <div class="inline-image-card" style="max-width: 640px; margin: 0 auto; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #0f141d;">
+            <img src="functional_analysis_of_genes_regulating_human_cortical_progenitor_dynamics.jpg" alt="Functional analysis of genes regulating human cortical progenitor dynamics" style="display: block; width: 100%; height: auto;" data-open-full />
+            <span class="hover-hint">Click to open in full size</span>
+          </div>
+        </section>
+
+
+
 
         <section id="employment">
           <h2>Employment and Academics</h2>
@@ -271,6 +284,11 @@
     </div>
   </main>
 
+  <div id="image-lightbox" class="image-lightbox" aria-modal="true" role="dialog">
+    <button id="image-lightbox-close" class="image-lightbox__close" type="button">Close</button>
+    <img id="image-lightbox-img" class="image-lightbox__img" alt="" />
+  </div>
+
   <script>
     (function () {
       const contactSection = document.getElementById('private-contact');
@@ -302,6 +320,57 @@
             /* keep hidden if missing */
           });
       }
+      
+      const lightbox = document.getElementById('image-lightbox');
+      const lightboxImg = document.getElementById('image-lightbox-img');
+      const closeBtn = document.getElementById('image-lightbox-close');
+      const openers = document.querySelectorAll('[data-open-full]');
+
+      if (lightbox && lightboxImg && closeBtn && openers.length) {
+        const open = (src, alt) => {
+          lightboxImg.src = src;
+          lightboxImg.alt = alt || '';
+          lightbox.style.display = 'flex';
+        };
+        const close = () => {
+          lightbox.style.display = 'none';
+          lightboxImg.src = '';
+        };
+
+        openers.forEach((img) => {
+          img.addEventListener('click', () => open(img.src, img.alt));
+        });
+
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) close();
+        });
+        closeBtn.addEventListener('click', close);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && lightbox.style.display === 'flex') close();
+        });
+      }
+
+      const tocLinks = document.querySelectorAll('.cv__toc a[href^="#"]');
+      const sections = Array.from(document.querySelectorAll('section[id]'));
+      const setActiveSection = (id) => {
+        sections.forEach((sec) => {
+          if (sec.id === id) {
+            sec.classList.remove('section--active');
+            // force reflow so animation can restart each click
+            void sec.offsetWidth;
+            sec.classList.add('section--active');
+          } else {
+            sec.classList.remove('section--active');
+          }
+        });
+      };
+
+      tocLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          const targetId = link.getAttribute('href').slice(1);
+          setActiveSection(targetId);
+        });
+      });
     })();
   </script>
 </body>
