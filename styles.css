@@ -1,264 +1,238 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Source+Serif+4:wght@500;600&display=swap');
+/*
+  Extraordinary CV theme — drop-in for your current HTML
+  Works with: <main class="cv">, .cv__header, .cv__contact-grid, section, article
 
-:root {
+  IMPORTANT (GitHub Pages):
+  - Remove the local absolute CSS link:
+      <link rel="stylesheet" href="C:/Users/deletable/Google%20Drive/Universal.css" />
+    It will NOT load online.
+  - Keep only: <link rel="stylesheet" href="styles.css" />
+*/
+
+:root{
   color-scheme: dark;
-  --bg: #0b1019;
-  --bg-accent: radial-gradient(circle at 20% 20%, rgba(124, 183, 255, 0.08), transparent 32%), radial-gradient(circle at 80% 0%, rgba(124, 255, 214, 0.08), transparent 32%), #0b1019;
-  --card: #0f1622;
-  --card-glow: rgba(124, 183, 255, 0.12);
-  --border: #1f2633;
-  --border-strong: #3a465b;
-  --text: #e8ebf2;
-  --muted: #aab3c5;
-  --accent: #7cb7ff;
-  --accent-2: #7cffc5;
-  --highlight: #151c29;
-  --radius: 14px;
-  --shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+
+  /* Palette */
+  --bg0:#070a0f;
+  --bg1:#0b1020;
+  --card:#0c1220;
+  --card2:#0a0f1b;
+  --border:rgba(255,255,255,.08);
+  --text:rgba(245,247,255,.92);
+  --muted:rgba(245,247,255,.62);
+  --soft:rgba(245,247,255,.08);
+
+  --accent:#7cb7ff;
+  --accent2:#a78bfa;
+  --good:#6ee7b7;
+
+  --max: 1020px;
+  --r: 16px;
+  --r2: 22px;
+  --shadow: 0 18px 50px rgba(0,0,0,.55);
+  --shadow2: 0 10px 30px rgba(0,0,0,.45);
+  --ring: 0 0 0 3px rgba(124,183,255,.20);
 }
 
-* {
-  box-sizing: border-box;
-}
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 28px 18px 40px;
-  background: var(--bg-accent);
+body{
+  margin:0;
+  padding: 26px 16px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
-  font-family: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-  line-height: 1.65;
-  display: flex;
-  justify-content: center;
+  line-height: 1.6;
+  letter-spacing: .1px;
+  background:
+    radial-gradient(1100px 700px at 15% 10%, rgba(124,183,255,.14), transparent 55%),
+    radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,.14), transparent 60%),
+    radial-gradient(900px 600px at 50% 120%, rgba(110,231,183,.08), transparent 60%),
+    linear-gradient(180deg, var(--bg1), var(--bg0));
 }
 
-main.cv {
-  width: min(1100px, 100%);
-  background: linear-gradient(145deg, rgba(17, 23, 34, 0.95), rgba(15, 21, 30, 0.92));
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 26px 28px 32px;
+/* Subtle texture without images */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.015) 0 1px, transparent 1px 4px);
+  mix-blend-mode: overlay;
+}
+
+a{ color: var(--accent); text-decoration:none; }
+a:hover{ text-decoration: underline; }
+a:focus{ outline:none; box-shadow: var(--ring); border-radius: 10px; }
+
+/* Main card */
+.cv{
+  max-width: var(--max);
+  margin: 0 auto;
+  border-radius: 26px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(135deg, rgba(124,183,255,.35), rgba(167,139,250,.25), rgba(110,231,183,.18)) border-box;
   box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
+  overflow:hidden;
 }
 
-main.cv::before,
-main.cv::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.28;
-  z-index: 0;
+/* Header becomes a hero */
+.cv__header{
+  padding: 22px 22px 16px;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(900px 300px at 20% 0%, rgba(124,183,255,.18), transparent 60%),
+    radial-gradient(900px 300px at 80% 0%, rgba(167,139,250,.16), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
 }
 
-main.cv::before {
-  width: 280px;
-  height: 280px;
-  background: var(--card-glow);
-  top: -70px;
-  left: -40px;
+h1{
+  margin:0;
+  font-weight: 850;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  background: linear-gradient(90deg, rgba(245,247,255,.96), rgba(124,183,255,.90), rgba(167,139,250,.86));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-main.cv::after {
-  width: 240px;
-  height: 240px;
-  background: rgba(124, 255, 197, 0.12);
-  bottom: -60px;
-  right: -40px;
-}
-
-.cv > * {
-  position: relative;
-  z-index: 1;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--accent-2);
-}
-
-h1 {
-  margin: 0 0 6px;
-  font-family: 'Source Serif 4', 'DM Sans', serif;
-  font-weight: 600;
-  font-size: clamp(28px, 4vw, 34px);
-  letter-spacing: 0.5px;
-}
-
-h2 {
-  margin: 18px 0 10px;
-  font-weight: 700;
-  font-size: clamp(17px, 3vw, 20px);
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
-  color: #f5f7fb;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-h2::after {
-  content: '';
-  display: inline-block;
-  width: 80px;
-  height: 3px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  opacity: 0.8;
-}
-
-h3 {
-  margin: 0 0 6px;
-  font-weight: 600;
-  color: #f6f8fc;
-}
-
-p {
-  margin: 0 0 10px;
-  color: var(--text);
-}
-
-.muted {
-  color: var(--muted);
-}
-
-.cv__header {
-  margin-bottom: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.cv__contact-grid {
-  display: grid;
+/* Contact grid -> premium pills */
+.cv__contact-grid{
+  display:grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
-}
-
-.cv__contact-grid > div {
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  background: var(--highlight);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.cv__contact-grid h3 {
-  margin-bottom: 4px;
-  color: #f6f8fc;
-  font-size: 14px;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-}
-
-section {
   margin-top: 16px;
 }
 
-article {
-  margin-bottom: 12px;
-  padding: 14px 16px;
+.cv__contact-grid > div{
+  padding: 12px 12px;
+  border-radius: var(--r2);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: rgba(17, 24, 36, 0.9);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+  box-shadow: 0 10px 22px rgba(0,0,0,.22);
 }
 
-article::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, rgba(124, 183, 255, 0.08), rgba(124, 255, 197, 0.08));
-  opacity: 0;
-  transition: opacity 0.2s ease;
+.cv__contact-grid h3{
+  margin:0 0 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--muted);
 }
 
-article:hover {
+.cv__contact-grid p{ margin:0; color: rgba(245,247,255,.88); }
+
+/* Section layout */
+section{
+  padding: 0 22px;
+  margin-top: 16px;
+}
+
+/* h2 becomes a labelled divider */
+h2{
+  margin: 18px 0 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: rgba(245,247,255,.72);
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  scroll-margin-top: 20px;
+}
+
+h2::before{
+  content:"";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 0 0 4px rgba(124,183,255,.12);
+}
+
+p{ margin: 8px 0; color: rgba(245,247,255,.90); }
+.muted{ color: var(--muted); }
+
+/* Goals + Skills blocks look like cards */
+.cv__summary,
+.cv__skills{
+  margin-top: 16px;
+  padding: 14px 14px;
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+}
+
+/* Experience cards */
+article{
+  margin: 12px 0;
+  padding: 14px 14px;
+  border-radius: var(--r2);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+  box-shadow: 0 10px 26px rgba(0,0,0,.28);
+  transition: transform .14s ease, border-color .14s ease, background .14s ease;
+}
+
+article:hover{
   transform: translateY(-2px);
-  border-color: var(--border-strong);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  border-color: rgba(124,183,255,.22);
+  background:
+    linear-gradient(180deg, rgba(124,183,255,.06), rgba(255,255,255,.02));
 }
 
-article:hover::before {
-  opacity: 1;
-}
+h3{ margin: 0 0 6px; font-size: 16px; }
 
-article h3 {
-  position: relative;
-  padding-left: 12px;
-  display: inline-flex;
-  align-items: center;
-}
+/* Lists */
+ul{ margin: 8px 0 0 18px; padding:0; }
+li{ margin: 4px 0; color: rgba(245,247,255,.88); }
+li::marker{ color: rgba(124,183,255,.70); }
 
-article h3::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: 6px;
-  height: 18px;
-  border-radius: 6px;
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
-}
+/* Fix nested <ul> spacing (you have one inside Technical Skills + GMRRF) */
+ul ul{ margin-top: 6px; }
 
-ul {
-  margin: 8px 0 0 18px;
-  padding: 0;
+/* Make long lines readable */
+.cv p, .cv li{ max-width: 90ch; }
+
+/* Buttons feel (if you add any later) */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  border-radius: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(124,183,255,.18);
+  background: rgba(124,183,255,.06);
   color: var(--text);
+  font-size: 13.5px;
+  text-decoration:none;
+}
+.btn:hover{ border-color: rgba(124,183,255,.35); background: rgba(124,183,255,.09); }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; scroll-behavior:auto !important; }
 }
 
-li {
-  margin: 4px 0;
-}
-
-li strong {
-  color: #f6f8fc;
-}
-
-.cv__references {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 12px;
-}
-
-#references-local {
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--highlight);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
-}
-
-#references-frame {
-  border-radius: 12px;
-}
-
-code {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border);
-  padding: 2px 6px;
-  border-radius: 8px;
-  font-size: 0.9em;
-}
-
-@media (max-width: 640px) {
-  body {
-    padding: 18px 12px 28px;
-  }
-
-  main.cv {
-    padding: 20px 18px 26px;
-  }
-
-  .cv__contact-grid {
-    grid-template-columns: 1fr;
-  }
+/* Print cleanly */
+@media print{
+  body{ background: #fff; color:#111; padding:0; }
+  body::before{ display:none; }
+  .cv{ max-width:none; border: 1px solid #ddd; box-shadow:none; background:#fff; }
+  .cv__header{ background:#fff; border-bottom:1px solid #ddd; }
+  h1{ color:#111; -webkit-text-fill-color:#111; background:none; }
+  a{ color:#111; text-decoration:none; }
+  article,.cv__summary,.cv__skills{ box-shadow:none; background:#fff; border-color:#ddd; }
+  h2{ color:#111; }
+  h2::before{ box-shadow:none; }
 }
