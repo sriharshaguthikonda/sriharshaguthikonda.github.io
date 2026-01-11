@@ -331,7 +331,7 @@ section{
 h2{
   margin: 18px 0 10px;
   font-family: 'Sora','Space Grotesk',sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   text-transform: uppercase;
   letter-spacing: .16em;
   color: rgba(245,247,255,.72);
@@ -381,7 +381,23 @@ article:hover{
   background: rgba(255,255,255,0.07);
 }
 
-h3{ margin: 0 0 6px; font-size: 16px; }
+h3{
+  margin: 0 0 10px;
+  font-family: 'Sora','Space Grotesk',sans-serif;
+  font-size: 16px;
+}
+h4{
+  margin: 10px 0 8px;
+  font-family: 'Sora','Space Grotesk',sans-serif;
+  font-size: 12px;
+}
+h5{
+  margin: 10px 0 6px;
+  font-family: 'Sora','Space Grotesk',sans-serif;
+  font-size: 14px;
+  letter-spacing: .02em;
+}
+
 .section--active{
   padding-bottom: 22px;
   margin-top: 16px;
@@ -800,27 +816,19 @@ ul ul{ margin-top: 6px; }
     drop-shadow(0 0 26px rgba(0, 39, 34, 0.9));
 }
 .map-connector path{
-  stroke: url(#map-connector-grad);
+  stroke: rgba(255,255,255,0.65);
   stroke-width: 3.1;
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-
   opacity: .9;
   transition:
     stroke 200ms ease,
     opacity 200ms ease,
     stroke-width 200ms ease;
 }
-.map-active .map-connector path{
-  opacity: 1;
-  stroke-width: 3.4;
-}
-.map-anchor{
-  position: relative;
-  display: inline-block;
-  z-index: 12;
-}
+.map-connector path.glow{
+  stroke: rgba(56, 189, 248, 0.8);
   stroke-width: 3.1;
   fill: none;
   stroke-linecap: round;
