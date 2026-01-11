@@ -3,9 +3,6 @@
   Works with: <main class="cv">, .cv__header, .cv__contact-grid, section, article
 
   IMPORTANT (GitHub Pages):
-  - Remove the local absolute CSS link:
-      <link rel="stylesheet" href="C:/Users/deletable/Google%20Drive/Universal.css" />
-    It will NOT load online.
   - Keep only: <link rel="stylesheet" href="styles.css" />
 */
 
@@ -30,6 +27,70 @@
   --shadow: 0 18px 50px rgba(0,0,0,.55);
   --shadow2: 0 10px 30px rgba(0,0,0,.45);
   --ring: 0 0 0 3px rgba(55,208,179,.25);
+}
+
+/* Inline from Universal.css (was previously linked locally) */
+u{
+  color:#2100fd;
+  text-decoration:none;
+  font-weight:bold;
+  font-style:normal;
+}
+
+b{
+  color:#fd0054;
+  text-decoration:none;
+  font-weight:bold;
+  font-style:normal;
+}
+
+em{
+  text-decoration:none;
+  font-weight:bold;
+  font-style:normal;
+  color:#08cca2;
+}
+
+strong{
+  color:#09a8cc;
+  font-weight:bold;
+  font-style:normal;
+  text-decoration:none;
+}
+
+.xs_indent_para{
+  padding-left:10pt;
+  text-indent:0pt;
+  line-height:100%;
+  text-align:left;
+}
+
+.s_indent_para{
+  padding-left:16pt;
+  text-indent:0pt;
+  line-height:100%;
+  text-align:left;
+}
+
+.regular_para{
+  padding-left:28pt;
+  text-indent:0pt;
+  line-height:100%;
+  text-align:left;
+}
+
+.l_indent_para{
+  padding-left:37pt;
+  text-indent:0pt;
+  line-height:100%;
+  text-align:left;
+}
+
+.xxxxl_indent_para{
+  padding-left:55pt;
+  text-indent:0pt;
+  line-height:100%;
+  text-align:left;
 }
 
 *{ box-sizing:border-box; }
