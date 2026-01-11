@@ -10,8 +10,11 @@
 </head>
 <body>
   <main class="cv">
+    
     <header class="cv__hero">
+      
       <div class="cv__hero-grid">
+        
         <div class="cv__hero-text">
           <span class="chip">MBBS · MSc Neuroscience</span>
           <h1>Dr. Sri Harsha Guthikonda</h1>
@@ -22,7 +25,11 @@
             <li>Bioinformatics workflows for CRISPR screens and RNA-seq</li>
           </ul>
           <div class="hero-actions">
+            <a class="btn btn-primary" href="Life_story/story.html">The Journey</a>
             <a class="btn btn-ghost" href="mailto:sri.guthikonda.19@ucl.ac.uk">Contact</a>
+          </div>
+          <div class="hero-swipe-hint" aria-hidden="true">
+            <span class="hero-swipe-text">Swipe right → to open the full Journey</span>
           </div>
         </div>
         <div class="cv__hero-aside">
@@ -69,15 +76,19 @@
         </div>
       </div>
     </header>
-
+  </main>
+  
+  
+  <br>
+  
+  <main class="cv">
     <br>
-
     <div class="cv__layout">
       <nav class="cv__toc" aria-label="Quick index">
         <strong>Jump to:</strong>
         <ul>
+          <li><a href="Life_story/story.html">The Journey</a></li>
           <li><a href="#goals">Goals</a></li>
-          <li><a href="#key-skills">Key Skills</a></li>
           <li><a href="#employment">Employment &amp; Academics</a></li>
           <li><a href="#qualifying-exams">Qualifying Exams</a></li>
           <li><a href="#technical-skills">Technical Skills</a></li>
@@ -90,6 +101,7 @@
       </nav>
 
       <div class="cv__content">
+
         <section class="cv__summary" id="goals">
           <h2>Goals</h2>
           <p>Improve wet lab skills through work in neurodegeneration; pursue a doctoral degree to expand knowledge and skills for developing therapies for neurodegenerative disorders; improve teaching and quality of care with a focus on cost-effectiveness of diagnostic and therapeutic approaches.</p>
@@ -105,7 +117,7 @@
         <button class="video-cover" type="button" data-video-cover>
           <div class="video-cover__meta">
             <span class="chip chip--soft">Featured talk</span>
-            <strong>Functional analysis of genes regulating human cortical progenitor dynamics</strong>
+            <strong>Comparison of tools for CRISPR knockout screen analysis</strong>
             <small>Play video</small>
           </div>
           <span class="video-cover__play" aria-hidden="true">▶</span>
@@ -137,7 +149,7 @@
 
                 
         <section>
-          <div class="inline-image-card" style="max-width: 640px; margin: 0 auto; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #0f141d;">
+          <div class="inline-image-card" style="width: 100%; margin: 0 auto; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #0f141d;">
             <img src="functional_analysis_of_genes_regulating_human_cortical_progenitor_dynamics.jpg" alt="Functional analysis of genes regulating human cortical progenitor dynamics" style="display: block; width: 100%; height: auto;" data-open-full />
             <span class="hover-hint">Click to open in full size</span>
           </div>
@@ -415,6 +427,81 @@
           }
         });
       });
+
+      /* Swipe to The Journey on touch devices */
+      const hero = document.querySelector('.cv__hero');
+      if (hero && 'ontouchstart' in window) {
+        let startX = 0;
+        let startY = 0;
+        let startT = 0;
+        const url = 'Life_story/story.html';
+        const onStart = (e) => {
+          const touch = e.changedTouches[0];
+          startX = touch.clientX;
+          startY = touch.clientY;
+          startT = Date.now();
+        };
+        const onEnd = (e) => {
+          const touch = e.changedTouches[0];
+          const dx = touch.clientX - startX;
+          const dy = touch.clientY - startY;
+          const dt = Date.now() - startT;
+          if (dt < 600 && Math.abs(dx) > 80 && Math.abs(dy) < 40 && dx > 0) {
+            window.location.href = url;
+          }
+        };
+        hero.addEventListener('touchstart', onStart, { passive: true });
+        hero.addEventListener('touchend', onEnd, { passive: true });
+      }
+
+      /* The Journey carousel */
+      const carousel = document.querySelector('[data-life-carousel]');
+      if (carousel) {
+        const slides = Array.from(carousel.querySelectorAll('.life-story__slide'));
+        const dotsHost = document.querySelector('.life-story__dots');
+        const prevBtn = document.querySelector('[data-life-prev]');
+        const nextBtn = document.querySelector('[data-life-next]');
+        let idx = 0;
+        let timer;
+
+        const renderDots = () => {
+          dotsHost.innerHTML = '';
+          slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'life-story__dot';
+            dot.type = 'button';
+            dot.setAttribute('aria-label', `Slide ${i + 1}`);
+            dot.addEventListener('click', () => go(i));
+            dotsHost.appendChild(dot);
+          });
+        };
+
+        const activate = (i) => {
+          slides.forEach((s, j) => s.classList.toggle('is-active', j === i));
+          dotsHost.querySelectorAll('.life-story__dot').forEach((d, j) => d.classList.toggle('is-active', j === i));
+        };
+
+        const go = (i) => {
+          idx = (i + slides.length) % slides.length;
+          activate(idx);
+          restartTimer();
+        };
+
+        const next = () => go(idx + 1);
+        const prev = () => go(idx - 1);
+
+        const restartTimer = () => {
+          if (timer) clearInterval(timer);
+          timer = setInterval(next, 6200);
+        };
+
+        renderDots();
+        activate(idx);
+        restartTimer();
+
+        nextBtn?.addEventListener('click', next);
+        prevBtn?.addEventListener('click', prev);
+      }
     })();
   </script>
 </body>
