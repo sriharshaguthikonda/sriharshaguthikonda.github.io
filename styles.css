@@ -192,6 +192,12 @@ a:focus{ outline:none; box-shadow: var(--ring); border-radius: 10px; }
   background: rgba(55,208,179,0.08);
 }
 
+.cv__toc li a.is-active{
+  color: var(--accent);
+  background: rgba(55,208,179,0.14);
+  box-shadow: 0 0 0 1px rgba(55,208,179,0.35) inset;
+}
+
 /* Hero */
 .cv__hero{
   padding: 28px 26px 24px;
