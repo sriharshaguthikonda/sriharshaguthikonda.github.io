@@ -1,0 +1,18 @@
+﻿{
+    "schemaVersion":  "repo-map-artifact-branch/v1",
+    "repo":  "sriharshaguthikonda/sriharshaguthikonda.github.io",
+    "generatedAt":  "2026-06-01T06:24:34.3905575Z",
+    "source":  "Repo_maps GitHub footprint publish runner",
+    "publishBranch":  "repo-intel-artifacts",
+    "mapCount":  1,
+    "totalBytes":  62066,
+    "maps":  [
+                 {
+                     "name":  "main",
+                     "ref":  "refs/remotes/origin/main",
+                     "commit":  "f7c13ed383559d9c6f7ebc03faaf98bf6088953a",
+                     "path":  ".repo-intel/branches/remote-origin/main__f7c13ed38355/repo-map-full.json",
+                     "bytes":  58805
+                 }
+             ]
+}
