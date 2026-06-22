@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Traffic Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 GitHub Traffic Analytics Dashboard</h1>
+            <p>Real-time repository traffic insights across all your repositories</p>
+        </header>
+
+        <div class="setup-section">
+            <h2>🔧 Setup</h2>
+            <div class="setup-form">
+                <label for="username">GitHub Username:</label>
+                <input type="text" id="username" placeholder="Enter your GitHub username" value="">
+                
+                <label for="token">GitHub Personal Access Token:</label>
+                <input type="password" id="token" placeholder="Paste your token (repo read access)">
+                
+                <button onclick="initializeDashboard()" class="btn-primary">Load Dashboard</button>
+                <p class="help-text">ℹ️ <a href="https://github.com/settings/tokens" target="_blank">Create a token here</a> with <code>public_repo</code> and <code>repo</code> scopes</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Repositories</h3>
+                <p id="total-repos" class="stat-value">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Views (14 days)</h3>
+                <p id="total-views" class="stat-value">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Clones (14 days)</h3>
+                <p id="total-clones" class="stat-value">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Stars</h3>
+                <p id="total-stars" class="stat-value">-</p>
+            </div>
+        </div>
+
+        <div class="charts-section">
+            <div class="chart-container">
+                <h2>Traffic Over Time</h2>
+                <canvas id="trafficChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Repository Comparison</h2>
+                <canvas id="reposChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Views vs Clones</h2>
+                <canvas id="viewsVsClonesChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Top Repositories by Views</h2>
+                <canvas id="topReposChart"></canvas>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <h2>📋 Detailed Repository Stats</h2>
+            <div class="table-wrapper">
+                <table id="repoTable" class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Repository</th>
+                            <th>Views</th>
+                            <th>Clones</th>
+                            <th>Stars</th>
+                            <th>Language</th>
+                            <th>Links</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="loading">Loading repositories...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="export-section">
+            <button onclick="exportToCSV()" class="btn-secondary">📥 Export to CSV</button>
+            <button onclick="exportToJSON()" class="btn-secondary">💾 Export to JSON</button>
+            <button onclick="refreshData()" class="btn-secondary">🔄 Refresh Data</button>
+        </div>
+
+        <footer>
+            <p>Last updated: <span id="last-updated">-</span></p>
+            <p>Data provided by GitHub API • Limited to 14 days of traffic history</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
