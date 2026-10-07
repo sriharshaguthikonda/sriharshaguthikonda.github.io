@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Is ChatGPT's OET Score Accurate? What AI Writing Scores Can and Can't Tell You</title>
+  <meta name="description" content="ChatGPT gave one OET letter 300 — and the official answer key for the same task 380/500. Why AI scores don't reproduce OET marking, and what per-criterion feedback is actually good for." />
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#0b1220; --card:rgba(255,255,255,0.05); --border:rgba(255,255,255,0.10);
+      --text:#e9edf5; --muted:#98a4c0; --accent:#37d0b3; --accent-2:#f7c948;
+      --r:16px; --max:900px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; padding:48px 20px; background:var(--bg); color:var(--text);
+      font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif; line-height:1.6;
+    }
+    main{max-width:var(--max); margin:0 auto}
+    .chip{
+      display:inline-block; font-size:.78rem; letter-spacing:.04em; color:var(--accent);
+      border:1px solid var(--border); border-radius:999px; padding:4px 12px; margin-bottom:16px;
+    }
+    h1{font-family:'Sora',system-ui,sans-serif; font-size:clamp(1.7rem,4vw,2.5rem); line-height:1.2; margin:0 0 12px}
+    h2{font-family:'Sora',system-ui,sans-serif; font-size:1.25rem; margin:26px 0 8px}
+    .lead{color:var(--muted); font-size:1.08rem; max-width:46rem}
+    p{max-width:46rem}
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:var(--r);
+      padding:26px 28px; margin-top:22px;
+    }
+    ul{margin:10px 0 18px; padding-left:20px}
+    li{margin:8px 0}
+    .btn{
+      display:inline-block; text-decoration:none; font-weight:600; border-radius:12px;
+      padding:12px 22px; margin:6px 10px 6px 0;
+    }
+    .btn-primary{background:var(--accent); color:#062018}
+    .btn-ghost{border:1px solid var(--border); color:var(--text)}
+    table{border-collapse:collapse; width:100%; margin:14px 0}
+    td,th{border:1px solid var(--border); padding:8px 12px; text-align:left; font-size:.95rem}
+    th{color:var(--accent-2); font-weight:600}
+    blockquote{
+      margin:14px 0; padding:10px 16px; border-left:3px solid var(--accent);
+      background:var(--card); border-radius:0 10px 10px 0; font-size:.95rem;
+    }
+    blockquote cite{display:block; color:var(--muted); font-size:.8rem; margin-top:6px; font-style:normal}
+    .fine{color:var(--muted); font-size:.82rem; margin-top:28px}
+    a{color:var(--accent)}
+  </style>
+</head>
+<body>
+<main>
+  <span class="chip">OET WRITING · AI SCORES EXPLAINED</span>
+  <h1>Is ChatGPT's OET score accurate? Short answer: treat it as noise.</h1>
+  <p class="lead">If you pasted a practice letter into ChatGPT and got a number back, you probably want to know whether that number means anything. Here is what the evidence says, why the gap exists, and what AI feedback <em>is</em> genuinely useful for.</p>
+
+  <h2>The experiment that settles it</h2>
+  <p>A candidate on the r/OETforECFMG subreddit pasted a practice referral letter into ChatGPT and received <strong>300</strong>. Suspicious of the number, they then pasted the <strong>official OET answer key</strong> for the same task — a model answer, the strongest possible letter — and ChatGPT scored it <strong>380/500</strong>.</p>
+  <blockquote>
+    "…gave me (the answer key) 380/500"
+    <cite>— the candidate, describing the result (<a href="https://www.reddit.com/r/OETforECFMG/comments/1wy9qpd/oet_letter_check_please/" rel="noopener">source thread</a>)</cite>
+  </blockquote>
+  <p>An eighty-point spread between a real letter and a model answer — produced by the same scorer, on the same task — means the number carries almost no signal about the letter. If a tool scores a perfect response 380, it cannot be trusted to tell you whether your 300-letter is a 250 or a 340. The only defensible conclusion: <strong>do not make decisions (remark, retake, study plan) based on a chatbot's OET score.</strong></p>
+
+  <h2>Why chatbots can't reproduce OET marking</h2>
+  <ul>
+    <li><strong>Calibration.</strong> Real OET writing scores come from trained assessors who mark against the six published criteria, with the sub-test double-marked by two assessors who don't see each other's scores, and discrepancies escalated to a senior assessor. A general-purpose chatbot has none of that calibration.</li>
+    <li><strong>No rubric anchoring.</strong> The model produces a plausible-sounding number because it has seen score-like numbers in training data — not because it measured your letter against level descriptors.</li>
+    <li><strong>Task-specific judgement.</strong> Selection — which case notes belong in the letter — depends on the specific task notes. Generative models regularly praise letters that selected the wrong content, or penalise correct omissions.</li>
+  </ul>
+
+  <h2>What AI feedback IS good for</h2>
+  <p>The failure above is about <em>scoring</em> — producing a number. Structured <em>feedback</em> is a different job, and AI can genuinely help with it: breaking your letter down criterion by criterion, showing which sections are thin, flagging register problems ("do an endoscopy" → "for endoscopic assessment"), and comparing your organisation against the expected letter shape. That is the difference between <strong>"you got 300"</strong> (noise) and <strong>"your purpose line is clear but your request is buried in the last paragraph"</strong> (actionable).</p>
+
+  <h2>Self-mark checklist: the six OET writing criteria</h2>
+  <table>
+    <tr><th>Criterion</th><th>The one question to ask of your letter</th></tr>
+    <tr><td>Purpose</td><td>Is the reason for writing unmistakable in the first two lines?</td></tr>
+    <tr><td>Content</td><td>Did I expand only what the task notes asked for — nothing invented, nothing important missing?</td></tr>
+    <tr><td>Conciseness &amp; Clarity</td><td>Is every sentence pulling weight at 180–200 words?</td></tr>
+    <tr><td>Genre &amp; Style</td><td>Does it read like one clinician writing to another — not a text message, not an essay?</td></tr>
+    <tr><td>Organisation &amp; Layout</td><td>Does each paragraph carry one movement (history → findings → management → request)?</td></tr>
+    <tr><td>Language</td><td>Are my tense slips and register errors the kind I repeat, or one-offs?</td></tr>
+  </table>
+
+  <div class="card">
+    <h2>Criterion-level feedback instead of a fake score</h2>
+    <p>OET Writing Coach GPT was built for exactly this: paste a practice letter and get a breakdown per criterion — where marks are actually lost — rather than a single unreliable number. It will not hand you an official score (nothing outside the real marking process can), and it does not pretend to. It needs a ChatGPT Plus account.</p>
+    <a class="btn btn-primary" href="https://chatgpt.com/g/g-89wC3dyCJ-oet-writing-coach" rel="noopener">Open OET Writing Coach</a>
+    <a class="btn btn-ghost" href="https://sriharshaguthikonda.github.io/oet/" rel="noopener">All OET tools</a>
+  </div>
+
+  <p class="fine">
+    Independent preparation tools by Dr. Sri Harsha Guthikonda. Not affiliated with, endorsed by, or approved by the OET Centre or Cambridge Boxhill Language Assessment (CBLA). OET is a registered trademark of CBLA. Requires a ChatGPT account (tools are listed for ChatGPT Plus). Feedback and scores are practice indicators only — no pass guarantee.
+  </p>
+</main>
+</body>
+</html>
