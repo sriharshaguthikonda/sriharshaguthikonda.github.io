@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Is ChatGPT Enough to Assess Your OET Writing? What the Prompt Is Missing</title>
+  <meta name="description" content="A raw ChatGPT prompt is better than nothing for OET writing self-assessment — but not enough. What unstructured feedback misses, and the per-criterion loop that works without a tutor." />
+  <style>
+    :root{
+      color-scheme: dark;
+      --bg:#0b1220; --card:rgba(255,255,255,0.05); --border:rgba(255,255,255,0.10);
+      --text:#e9edf5; --muted:#98a4c0; --accent:#37d0b3; --accent-2:#f7c948;
+      --r:16px; --max:900px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; padding:48px 20px; background:var(--bg); color:var(--text);
+      font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif; line-height:1.6;
+    }
+    main{max-width:var(--max); margin:0 auto}
+    .chip{
+      display:inline-block; font-size:.78rem; letter-spacing:.04em; color:var(--accent);
+      border:1px solid var(--border); border-radius:999px; padding:4px 12px; margin-bottom:16px;
+    }
+    h1{font-family:'Sora',system-ui,sans-serif; font-size:clamp(1.7rem,4vw,2.5rem); line-height:1.2; margin:0 0 12px}
+    h2{font-family:'Sora',system-ui,sans-serif; font-size:1.25rem; margin:26px 0 8px}
+    .lead{color:var(--muted); font-size:1.08rem; max-width:46rem}
+    p{max-width:46rem}
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:var(--r);
+      padding:26px 28px; margin-top:22px;
+    }
+    ul,ol{margin:10px 0 18px; padding-left:20px}
+    li{margin:8px 0}
+    .btn{
+      display:inline-block; text-decoration:none; font-weight:600; border-radius:12px;
+      padding:12px 22px; margin:6px 10px 6px 0;
+    }
+    .btn-primary{background:var(--accent); color:#062018}
+    .btn-ghost{border:1px solid var(--border); color:var(--text)}
+    table{border-collapse:collapse; width:100%; margin:14px 0}
+    td,th{border:1px solid var(--border); padding:8px 12px; text-align:left; font-size:.95rem}
+    th{color:var(--accent-2); font-weight:600}
+    blockquote{
+      margin:14px 0; padding:10px 16px; border-left:3px solid var(--accent);
+      background:var(--card); border-radius:0 10px 10px 0; font-size:.95rem;
+    }
+    blockquote cite{display:block; color:var(--muted); font-size:.8rem; margin-top:6px; font-style:normal}
+    .fine{color:var(--muted); font-size:.82rem; margin-top:28px}
+    a{color:var(--accent)}
+  </style>
+</head>
+<body>
+<main>
+  <span class="chip">OET WRITING · SELF-ASSESSMENT</span>
+  <h1>Is ChatGPT enough to assess your OET writing?</h1>
+  <p class="lead">No tutor, no study group, and a chatbot that will happily grade your letter. A candidate on r/OETforECFMG asked it plainly: <em>"Is giving a prompt to ChatGPT enough?"</em> The honest answer: it's better than nothing — and not enough. Here's the gap, and the loop that closes it.</p>
+
+  <h2>Why the raw prompt under-delivers</h2>
+  <p>Ask a general chatbot "score my OET letter" and you get an impressionistic reply: fluent, encouraging, unanchored. Three specific problems:</p>
+  <ul>
+    <li><strong>No calibration.</strong> The model wasn't trained to reproduce OET marking. One candidate proved the point: their practice letter scored <strong>300</strong> — and the official model answer for the same task scored <strong>380/500</strong> from the same chatbot. A scorer that penalises a model answer cannot rank your letter meaningfully.</li>
+    <li><strong>Prompt-sensitive numbers.</strong> The same letter gets different numbers depending on how you ask. A score that moves when your phrasing does isn't measuring your writing.</li>
+    <li><strong>Feedback without structure.</strong> "Good job, watch your grammar" is not feedback you can act on. OET writing is marked on six named criteria — feedback that isn't organised around them can't tell you where marks are lost.</li>
+  </ul>
+  <blockquote>
+    "To those who have passed OET, how do you assess your writing? Is giving a prompt to ChatGPT enough? I'm not sure about my writing, and I have no one to ask."
+    <cite>— the question that prompted this page (<a href="https://www.reddit.com/r/OETforECFMG/comments/1x21j99/writing_part/" rel="noopener">source thread</a>)</cite>
+  </blockquote>
+
+  <h2>What "enough" looks like</h2>
+  <p>The difference between useless and useful AI feedback is <strong>structure, not honesty or effort</strong>. Feedback is actionable when it is:</p>
+  <table>
+    <tr><th>Structured feedback does…</th><th>A raw chat prompt does…</th></tr>
+    <tr><td>Scores each of the six criteria separately (Purpose, Content, Conciseness &amp; Clarity, Genre &amp; Style, Organisation &amp; Layout, Language)</td><td>Blends everything into one vibe and one number</td></tr>
+    <tr><td>Checks the letter against the <em>task's case notes</em> — what was expanded that shouldn't be, what was missed</td><td>Judges the letter as prose, ignoring selection</td></tr>
+    <tr><td>Flags word-count drift against the 180–200 target</td><td>May not check at all unless asked</td></tr>
+    <tr><td>Points at the exact line to fix</td><td>Summarises in generalities</td></tr>
+  </table>
+
+  <h2>The self-assessment loop (no tutor required)</h2>
+  <ol>
+    <li><strong>Write one timed letter</strong> from a real task (case notes + letter stimulus).</li>
+    <li><strong>Get per-criterion feedback</strong> — structured, against the six criteria, including case-note selection and word count.</li>
+    <li><strong>Fix that one letter</strong> rather than writing a fresh one badly — rewriting the same letter against the feedback teaches faster than volume.</li>
+    <li><strong>Track your repeated errors</strong> across letters: the slip you make in every letter is worth more than any new practice task.</li>
+    <li><strong>In the final week:</strong> one properly-reviewed letter per day beats five unreviewed ones.</li>
+  </ol>
+
+  <div class="card">
+    <h2>The structured version, pre-built</h2>
+    <p>OET Writing Coach GPT is that structured loop as a tool: paste a practice letter and get a breakdown per criterion — where marks are actually lost, which case-note details were missed or shouldn't be there, and where the letter drifts from the 180–200 word target. It needs a ChatGPT Plus account.</p>
+    <a class="btn btn-primary" href="https://chatgpt.com/g/g-89wC3dyCJ-oet-writing-coach" rel="noopener">Open OET Writing Coach</a>
+    <a class="btn btn-ghost" href="https://sriharshaguthikonda.github.io/oet/" rel="noopener">All OET tools</a>
+  </div>
+
+  <p class="fine">
+    Independent preparation tools by Dr. Sri Harsha Guthikonda. Not affiliated with, endorsed by, or approved by the OET Centre or Cambridge Boxhill Language Assessment (CBLA). OET is a registered trademark of CBLA. Requires a ChatGPT account (tools are listed for ChatGPT Plus). Feedback and scores are practice indicators only — no pass guarantee. Related: <a href="chatgpt-oet-score-accuracy.html">is ChatGPT's OET score accurate?</a> · <a href="oet-writing-290-remark.html">stuck at 290? what a remark can fix</a>
+  </p>
+</main>
+</body>
+</html>
