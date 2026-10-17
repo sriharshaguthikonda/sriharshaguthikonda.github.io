@@ -1350,3 +1350,41 @@ strong {
   .cv__toc-slot { display: none !important; }
   .cv__toc[data-docked="true"] { display: none !important; }
 }
+
+
+/* Mobile reading width: remove the stacked body + layout + section gutters.
+   Desktop/tablet geometry is intentionally unchanged. */
+@media screen and (max-width: 680px) {
+  body {
+    padding: 8px 4px 24px;
+  }
+  .cv {
+    max-width: 100%;
+    border-radius: 14px;
+  }
+  .cv__layout {
+    padding: 0 6px 18px;
+    gap: 12px;
+  }
+  .cv__hero {
+    padding: 18px 12px 20px;
+  }
+  .cv__content {
+    min-width: 0;
+  }
+  .cv__content > section {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .cv__content article {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .cv__content .media-card,
+  .cv__content .cv__skills {
+    padding: 10px;
+  }
+  .cv__toc-slot > .cv__toc {
+    padding: 10px;
+  }
+}
