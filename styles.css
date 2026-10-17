@@ -1204,6 +1204,8 @@ strong {
 }
 /* Once scrolled past the original card, its SAME nav element moves into body. */
 .cv__toc[data-docked="true"] {
+  /* Override the legacy mobile flex card: this is one vertical pill/panel. */
+  display: block;
   position: fixed;
   top: auto;
   bottom: calc(12px + env(safe-area-inset-bottom, 0px));
