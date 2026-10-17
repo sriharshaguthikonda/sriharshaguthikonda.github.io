@@ -1437,3 +1437,31 @@ strong {
     display: none;
   }
 }
+
+/* Public medical-AI tool showcase inside the existing AI section. */
+.medical-ai-showcase {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid rgba(55,208,179,.24);
+  border-radius: var(--r2);
+  background: linear-gradient(155deg, rgba(55,208,179,.08), rgba(255,255,255,.025));
+}
+.medical-ai-showcase h3 { margin-bottom: 8px; font-size: 19px; }
+.medical-ai-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.medical-ai-showcase__card { margin: 0; min-width: 0; padding: 16px; }
+.medical-ai-showcase__card h4 { font-size: 16px; margin: 4px 0 8px; line-height: 1.35; }
+.medical-ai-showcase__card p { margin: 7px 0; }
+.medical-ai-showcase__label {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.medical-ai-showcase__link { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.medical-ai-showcase__note { font-size: 13px; color: var(--muted); margin-top: 14px; }
