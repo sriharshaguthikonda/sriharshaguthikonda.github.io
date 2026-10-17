@@ -1415,3 +1415,25 @@ strong {
 @media (prefers-reduced-motion: reduce) {
   .cv__toc-slot { transition: none !important; }
 }
+
+/* Desktop/wide layouts keep the original Jump to sidebar, never a floating pill.
+   The 900px threshold matches the JS viewport query and the stacked layout. */
+@media screen and (min-width: 901px) {
+  .cv__toc-slot {
+    align-self: stretch;
+    height: auto !important;
+    min-height: 0;
+  }
+  .cv__toc-slot > .cv__toc {
+    display: block;
+    position: sticky;
+    top: 18px;
+    max-height: calc(100dvh - 36px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  .cv__toc-slot .compass__threshold {
+    display: none;
+  }
+}
