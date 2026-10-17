@@ -57,16 +57,20 @@
 
   function moveNav(shouldDock) {
     if (shouldDock === docked) return;
+    const previous = nav.getBoundingClientRect();
+    const visible = previous.bottom > 24 && previous.top < window.innerHeight - 24;
     const apply = () => {
       if (shouldDock) {
+        // Keep one nav node: it is visibly transformed, not replaced by a
+        // different pill. The mobile grid slot collapses as the card shrinks.
         measureCard();
         nav.dataset.docked = 'true';
-        // The old card has a backdrop-filter. Portalling THIS SAME nav outside
-        // that containing block makes fixed positioning genuinely viewport-fixed.
+        slot.dataset.morphed = 'true';
         document.body.appendChild(nav);
       } else {
         nav.removeAttribute('data-docked');
         slot.insertBefore(nav, marker);
+        slot.removeAttribute('data-morphed');
       }
       docked = shouldDock;
       if (!docked) {
@@ -74,8 +78,14 @@
         measureCard();
       }
     };
-    if (typeof document.startViewTransition === 'function' &&
-        !reduceMotion.matches && !transitioning) {
+
+    // Start the transition while the source card is still on-screen.
+    // Reduced motion and deep links should change state immediately.
+    if (!visible || reduceMotion.matches) {
+      apply();
+      return;
+    }
+    if (typeof document.startViewTransition === 'function' && !transitioning) {
       transitioning = true;
       try {
         const transition = document.startViewTransition(apply);
@@ -83,12 +93,27 @@
           transitioning = false;
           scheduleUpdate();
         });
+        return;
       } catch (_) {
         transitioning = false;
-        apply();
       }
-    } else {
-      apply();
+    }
+
+    // Fallback for browsers without the View Transitions API: animate the
+    // very same nav element from its measured card rectangle into the pill.
+    apply();
+    if (typeof nav.animate === 'function') {
+      const next = nav.getBoundingClientRect();
+      const dx = previous.left - next.left;
+      const dy = previous.top - next.top;
+      const sx = Math.max(.4, Math.min(4, previous.width / Math.max(next.width, 1)));
+      const sy = Math.max(.4, Math.min(4, previous.height / Math.max(next.height, 1)));
+      nav.animate([
+        { transform: `translateX(-50%) translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
+          transformOrigin: '0 0', opacity: .85 },
+        { transform: shouldDock ? 'translateX(-50%)' : 'none',
+          transformOrigin: '0 0', opacity: 1 }
+      ], { duration: 560, easing: 'cubic-bezier(.2,.8,.2,1)' });
     }
   }
 
@@ -120,10 +145,14 @@
   function update() {
     scheduled = false;
     if (!transitioning) {
-      // Hysteresis prevents flickering near the scroll boundary.
-      const boundary = marker.getBoundingClientRect().top;
-      if (!docked && boundary < -12) moveNav(true);
-      else if (docked && boundary > 55) moveNav(false);
+      // Dock when the top of the real Jump to card is still clearly
+      // visible, not after its bottom has disappeared above the screen.
+      // The gap between enter and exit is intentional scroll hysteresis.
+      const boundary = slot.getBoundingClientRect().top;
+      const enter = Math.max(150, Math.min(320, window.innerHeight * .45));
+      const exit = enter + 130;
+      if (!docked && boundary < enter) moveNav(true);
+      else if (docked && boundary > exit) moveNav(false);
     }
     updateActive();
   }

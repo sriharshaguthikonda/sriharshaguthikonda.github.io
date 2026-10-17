@@ -1319,7 +1319,13 @@ strong {
 @media (max-width: 900px) {
   .cv__toc-slot {
     grid-column: 1;
-    min-height: var(--compass-card-height, auto);
+    min-height: 0;
+    height: var(--compass-card-height, auto);
+    transition: height 480ms cubic-bezier(.2,.75,.2,1);
+    overflow-anchor: none;
+  }
+  .cv__toc-slot[data-morphed="true"] {
+    height: 0;
   }
   .cv__toc-slot > .cv__toc {
     position: relative;
@@ -1341,9 +1347,24 @@ strong {
 }
 @media (prefers-reduced-motion: no-preference) {
   .cv__toc[data-compass-ready] { view-transition-name: reading-compass; }
-  ::view-transition-old(reading-compass), ::view-transition-new(reading-compass) {
-    animation-duration: 260ms;
-    animation-timing-function: ease-in-out;
+  /* The page itself must not cross-fade while its section content moves up. */
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  ::view-transition-group(reading-compass) {
+    animation-duration: 580ms;
+    animation-timing-function: cubic-bezier(.2,.75,.2,1);
+  }
+  ::view-transition-old(reading-compass),
+  ::view-transition-new(reading-compass) {
+    animation-duration: 580ms;
+    animation-timing-function: cubic-bezier(.2,.75,.2,1);
+  }
+  .cv__toc[data-docked="true"] {
+    animation: compass-arrival 720ms 520ms ease-out both;
+  }
+  @keyframes compass-arrival {
+    0% { box-shadow: 0 0 0 0 rgba(55,208,179,.36), 0 12px 38px rgba(0,0,0,.5); }
+    50% { box-shadow: 0 0 0 7px rgba(55,208,179,.15), 0 12px 38px rgba(0,0,0,.5); }
+    100% { box-shadow: 0 0 0 0 rgba(55,208,179,0), 0 12px 38px rgba(0,0,0,.5); }
   }
 }
 @media print {
@@ -1387,4 +1408,10 @@ strong {
   .cv__toc-slot > .cv__toc {
     padding: 10px;
   }
+}
+
+
+/* Compass visible morph, original navigation is the only navigable copy. */
+@media (prefers-reduced-motion: reduce) {
+  .cv__toc-slot { transition: none !important; }
 }
