@@ -55,7 +55,9 @@
     }
   }
 
-  function moveNav(shouldDock) {
+  function moveNav(shouldDock, instant = false) {
+    // The floating pill belongs exclusively to narrow viewports.
+    if (shouldDock && !breakpoint.matches) return;
     if (shouldDock === docked) return;
     const previous = nav.getBoundingClientRect();
     const visible = previous.bottom > 24 && previous.top < window.innerHeight - 24;
@@ -81,7 +83,7 @@
 
     // Start the transition while the source card is still on-screen.
     // Reduced motion and deep links should change state immediately.
-    if (!visible || reduceMotion.matches) {
+    if (instant || !visible || reduceMotion.matches) {
       apply();
       return;
     }
@@ -144,6 +146,14 @@
 
   function update() {
     scheduled = false;
+    // Wide layouts always retain the original in-column sticky TOC.
+    // Reinsert that same node if a mobile browser is resized or switched
+    // to desktop-site mode; never leave a body-level floating pill.
+    if (!breakpoint.matches) {
+      if (docked) moveNav(false, true);
+      updateActive();
+      return;
+    }
     if (!transitioning) {
       // Dock when the top of the real Jump to card is still clearly
       // visible, not after its bottom has disappeared above the screen.
@@ -237,14 +247,15 @@
   });
 
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
-  window.addEventListener('resize', () => {
+  function adaptToViewport() {
+    // Match CSS, not the user-agent: tablets, resized windows and
+    // browser "desktop site" settings adapt without a choice prompt.
+    if (!breakpoint.matches && docked) moveNav(false, true);
     if (!docked) measureCard();
     scheduleUpdate();
-  }, { passive: true });
-  breakpoint.addEventListener?.('change', () => {
-    if (!docked) measureCard();
-    scheduleUpdate();
-  });
+  }
+  window.addEventListener('resize', adaptToViewport, { passive: true });
+  breakpoint.addEventListener?.('change', adaptToViewport);
 
   const directHash = () => {
     let id;
