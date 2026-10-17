@@ -1209,8 +1209,9 @@ strong {
   position: fixed;
   top: auto;
   bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  left: calc(12px + env(safe-area-inset-left, 0px));
+  left: 50%;
   right: auto;
+  transform: translateX(-50%);
   z-index: 1000;
   box-sizing: border-box;
   width: min(340px, calc(100vw - 24px));
@@ -1335,7 +1336,7 @@ strong {
   }
 }
 @media (max-width: 380px) {
-  .cv__toc[data-docked="true"] { width: calc(100vw - 20px); left: 10px; }
+  .cv__toc[data-docked="true"] { width: calc(100vw - 20px); left: 50%; }
   .cv__toc[data-docked="true"][data-open="true"] { width: calc(100vw - 20px); }
 }
 @media (prefers-reduced-motion: no-preference) {
