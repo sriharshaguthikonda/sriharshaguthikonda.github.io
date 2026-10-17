@@ -1,24 +1,43 @@
-# Cloudflare Web Analytics setup
+# Cloudflare Web Analytics
 
-This GitHub Pages site can use **Cloudflare Web Analytics** without moving DNS or hosting.
+## Status
 
-## Owner action needed
+Cloudflare Web Analytics is enabled in the portfolio homepage `index.html` using the owner-supplied site token `eca18986ce194f0ca27ea9a8847ff3c6`.
 
-1. Sign in to [Cloudflare Web Analytics](https://dash.cloudflare.com/?to=/:account/web-analytics) using your own Cloudflare account (a free account is fine).
-2. Choose **Add a site**. For the site hostname, enter **sriharshaguthikonda.github.io** (hostname only, no `https://` or path).
-3. Choose the manual JavaScript snippet option, then copy the **site token** (or complete beacon snippet) from **Manage site**.
-4. Share only the site token/snippet with the maintainer, **not** your Cloudflare password or an API key. The site token is a public browser-side identifier.
+The site remains hosted on GitHub Pages; no DNS, CDN or hosting change is required. The beacon is a third-party module script loaded from Cloudflare. Its token is a public browser-side site identifier, not an API secret.
 
-## Maintainer activation
+## Installation
 
-- In `index.html`, near `</body>`, replace `REPLACE_WITH_CLOUDFLARE_SITE_TOKEN` with the real site token and remove the surrounding HTML comment markers.
-- Keep a **single** beacon script per page. This site's main portfolio is `index.html`; if other standalone HTML pages also need analytics, add that same snippet there once verified.
-- Run the repository's navigation checks and existing tests. Merge only when they pass.
-- After deployment, load the public website in an ordinary browser (ad blockers can suppress the beacon). Check the browser Network panel for `beacon.min.js` and the analytics request to `cloudflareinsights.com/cdn-cgi/rum`.
-- Check Cloudflare **Web Analytics** for visits; the dashboard may take a few minutes. This does not restore visits from before activation.
+One beacon script directly before the closing `</body>` tag:
 
-## Visitor privacy
+```html
+<!-- Cloudflare Web Analytics -->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token":"eca18986ce194f0ca27ea9a8847ff3c6"}'></script>
+<!-- End Cloudflare Web Analytics -->
+```
 
-Cloudflare Web Analytics does not identify named visitors or individual recruiters. Avoid claiming that a visitor from an organisation or city is a named person. Add a short factual privacy statement if site policy calls for it.
+Do not add a second copy in `index.html`, a shared template, tag manager or Cloudflare automatic injection; duplicate beacons can lead to missing or skewed data.
 
-References: [Cloudflare official manual setup](https://developers.cloudflare.com/web-analytics/get-started/), [Cloudflare data collection](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/).
+## Verification after merge
+
+1. Run repository checks:
+   ```sh
+   python scripts/sync_navigation.py --check
+   python -m unittest discover -s tests -p "test_*.py"
+   ```
+   Check the GitHub Actions status before merging; a local/static inspection alone is not a substitute for CI.
+2. Load https://sriharshaguthikonda.github.io/ in an ordinary browser (without a blocking extension) and inspect Page Source for **one** Cloudflare script with the exact token.
+3. In Developer Tools > Network, confirm `beacon.min.js` loads from `static.cloudflareinsights.com` and a POST to `cloudflareinsights.com/cdn-cgi/rum` appears (may be sent when the page is hidden).
+4. In Cloudflare > Web Analytics, select the `sriharshaguthikonda.github.io` site. Wait a few minutes for reporting; only visits after activation can appear.
+5. If missing, verify the hostname is correct in Cloudflare's **Manage site**, disable blockers while checking, and inspect browser console for Content Security Policy (CSP) or CORS errors.
+6. Audit any standalone HTML pages that visitors can navigate to independently; the manual beacon only tracks pages where it is embedded.
+
+## Privacy and interpretation
+
+Cloudflare Web Analytics reports aggregated visits, page views, sources and performance, not the real identity of a visitor. Do not infer an individual recruiter or employer from a network, city or referral. Do not add extra identity tracking.
+
+Official docs:
+- https://developers.cloudflare.com/web-analytics/get-started/
+- https://developers.cloudflare.com/web-analytics/faq/
+- https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
