@@ -97,20 +97,20 @@
             <span class="compass__percentage" aria-hidden="true">0%</span>
             <span class="compass__chevron" aria-hidden="true">▾</span>
           </button>
-          <ul id="compass-links">
-            <li><span class="compass__group-label">Clinical &amp; academic</span><a href="#languages">Languages</a></li>
-            <li><a href="#employment">Employment &amp; Academics</a></li>
-            <li><a href="#qualifying-exams">Qualifying Exams</a></li>
+                    <ul id="compass-links">
+            <li><span class="compass__group-label">Overview</span><a href="#key-skills">Key Skills</a></li>
+            <li><a href="#languages">Languages</a></li>
+            <li><span class="compass__group-label">Experience &amp; projects</span><a href="#employment">Employment &amp; Academics</a></li>
+            <li><a href="#independent-development">Independent Projects</a></li>
+            <li><span class="compass__group-label">Qualifications &amp; CME</span><a href="#qualifying-exams">Qualifying Exams</a></li>
             <li><a href="#continuing-medical-education">Continuing Medical Education</a></li>
-            <li><span class="compass__group-label">Research</span><a href="#key-skills">Key Skills</a></li>
-            <li><a href="#technical-skills">Technical Skills</a></li>
-            <li><a href="#presentations">Presentations &amp; Seminars</a></li>
-            <li><span class="compass__group-label">Engineering</span><a href="#independent-development">Independent Projects</a></li>
+            <li><span class="compass__group-label">Research &amp; engineering</span><a href="#technical-skills">Technical Skills</a></li>
             <li><a href="#digital-skills">Software &amp; Systems Engineering</a></li>
             <li><a href="#ai-skills">AI Engineering &amp; Medical AI</a></li>
             <li><a href="#whisper-training-work">↳ Whisper model training</a></li>
             <li><span class="compass__group-label">More</span><a href="#achievements">Achievements</a></li>
-            <li><a href="#extracurricular">Extracurricular</a></li>
+            <li><a href="#presentations">Presentations &amp; Seminars</a></li>
+            <li><a href="#extracurricular">Extracurricular Activities</a></li>
             <li><a href="#community">Community Service</a></li>
           </ul>
           <div class="compass__tools" hidden>
@@ -149,7 +149,7 @@
       </div>
     </section>
 
-        <section class="cv__skills" id="key-skills">
+        <section class="cv__skills" id="key-skills" data-nav-group="Overview">
           <h2>Key Skills</h2>
           <ul>
             <li><strong>Clinical care:</strong> assessment and ongoing management of post-operative and acutely unwell patients; monitoring and escalation; safe prescribing and documentation; patient and family communication.</li>
@@ -187,7 +187,7 @@
 
 
 
-        <section id="employment">
+        <section id="employment" data-nav-group="Experience &amp; projects" data-nav-label="Employment &amp; Academics">
           <h2>Employment and Academics</h2>
           <article>
             <h3>2019 – 2021 &mdash; Masters in Neuroscience</h3>
@@ -279,7 +279,7 @@
           </article>
         </section>
 
-        <section id="independent-development">
+        <section id="independent-development" data-nav-label="Independent Projects">
             <h2>Independent Projects &amp; Professional Development (2023–2026)</h2>
             <p>Independent software and applied-AI work alongside professional examination preparation and personal commitments. These activities are presented as professional development, not formal salaried employment.</p>
             <ul>
@@ -301,7 +301,7 @@
             </article>
           </section>
 
-        <section id="qualifying-exams">
+        <section id="qualifying-exams" data-nav-group="Qualifications &amp; CME">
           <h2>Qualifying Exams</h2>
           <ul>
             <li>PLAB 1 and PLAB 2 (passed).</li>
@@ -311,7 +311,7 @@
           </ul>
         </section>
 
-        <section id="continuing-medical-education">
+        <section id="continuing-medical-education" data-nav-label="Continuing Medical Education">
           <h2>Continuing Medical Education (CME / CPD)</h2>
           <p>Completed 19 OmniCuris online CME courses, including dementia, deep brain stimulation, emergency medicine and cardiology.</p>
           <details class="site-details">
@@ -342,7 +342,7 @@
           <p class="site-footnote">Course completion does not itself establish GMC-accredited CME credit.</p>
         </section>
 
-        <section id="technical-skills">
+        <section id="technical-skills" data-nav-group="Research &amp; engineering">
           <h2>Technical Skills</h2>
           <ul>
             <li>Lentiviral CRISPR; iPSC-derived human neuronal progenitors; primary culture (basics); MTT, invasion, FACS, angiogenesis, migration, efflux, and cell counts.</li>
@@ -362,7 +362,7 @@
           </ul>
         </section>
 
-        <section id="digital-skills">
+        <section id="digital-skills" data-nav-label="Software &amp; Systems Engineering">
             <h2>Software &amp; Systems Engineering</h2>
             <ul>
               <li><strong>Programmable keyboards &amp; firmware configuration:</strong> Hands-on ZMK keymap/layer configuration, board builds, Bluetooth behaviour, bootloader and custom input-device troubleshooting. <a href="https://github.com/sriharshaguthikonda/zmk_config_boardsource3x4_nicenano_v2" target="_blank" rel="noopener noreferrer">ZMK keyboard configuration</a>; demonstrations: <a href="https://www.youtube.com/watch?v=movqx-3nQjI" target="_blank" rel="noopener noreferrer" title="Mechanical keyboard dactyl zmk left (2024)">left-hand Dactyl build</a> and <a href="https://www.youtube.com/watch?v=Kaqcmn6OtZg" target="_blank" rel="noopener noreferrer" title="mechanical keyboard dactyl zmk RGB (2024)">RGB lighting</a>.
@@ -406,13 +406,13 @@
             </ul>
             <p class="cme-note">Experience with BLE/HID internals, advanced CI/CD, React/TypeScript, Android, Zephyr drivers and other forked or heavily AI-assisted codebases is not presented here as independently demonstrated expert-level programming.</p>
           </section>
-          <section id="ai-skills">
+          <section id="ai-skills" data-nav-label="AI Engineering &amp; Medical AI">
             <h2>AI Engineering &amp; Applied Medical AI</h2>
             <ul>
               <li><strong>Retrieval-augmented generation:</strong> Semantic chunking, embeddings, ChromaDB/Milvus vector stores, retrieval pipelines and local Ollama or Groq-backed generation (<a href="https://github.com/sriharshaguthikonda/easy-local-rag" target="_blank" rel="noopener">easy-local-rag</a>).</li>
               <li><strong>Speech interfaces and transcription:</strong> Whisper/Faster-Whisper transcription, live microphone handling, streaming audio, wake-word interfaces and resilient device reconnection (<a href="https://github.com/sriharshaguthikonda/whisper-keyboard" target="_blank" rel="noopener">whisper-keyboard</a>).</li>
               <li>
-                <details class="ai-project-details" id="whisper-training-work">
+                <details class="ai-project-details" id="whisper-training-work" data-nav-item data-nav-label="↳ Whisper model training">
                   <summary><strong>Speech-model training &amp; evaluation:</strong> Synthetic audio datasets, Whisper fine-tuning (LoRA/DoRA) and WER/CER testing.</summary>
                   <p>Prepared speech datasets with corrected transcripts, speaker filtering and chunking; generated noise, voice-mix, reverb and tempo variants using repeatable pipelines. Evaluated checkpoints and investigated training instability.</p>
                   <p class="ai-project-details__note"><a href="https://github.com/sriharshaguthikonda/whisper-acft" target="_blank" rel="noopener noreferrer">Project and methods</a> · Adapted from <a href="https://github.com/futo-org/whisper-acft" target="_blank" rel="noopener noreferrer">FUTO Whisper-ACFT</a>; experimental, not a production model.</p>
@@ -425,7 +425,7 @@
             </ul>
           </section>
 
-        <section id="achievements">
+        <section id="achievements" data-nav-group="More">
           <h2>Achievements</h2>
           <ul>
             <li>Rank 204 in EAMCET (~60,000 candidates).</li>
@@ -433,7 +433,7 @@
           </ul>
         </section>
 
-        <section id="presentations">
+        <section id="presentations" data-nav-label="Presentations &amp; Seminars">
           <h2>Presentations, Seminars &amp; Organizational Skills</h2>
           <ul>
             <li>17 Jan 2019: Poster on functional analysis of genes regulating human cortical progenitor dynamics, UCL.</li>
