@@ -64,8 +64,8 @@ class NavigationTests(unittest.TestCase):
             generated_html(dirty)
 
     def test_moving_sections_requires_new_navigation_order(self):
-        a = re.search(r'<section id="achievements">.*?</section>', self.clean, re.S)
-        b = re.search(r'<section id="presentations">.*?</section>', self.clean, re.S)
+        a = re.search(r'<section id="achievements"[^>]*>.*?</section>', self.clean, re.S)
+        b = re.search(r'<section id="presentations"[^>]*>.*?</section>', self.clean, re.S)
         self.assertIsNotNone(a)
         self.assertIsNotNone(b)
         moved = (self.clean[:a.start()] + b.group() +
