@@ -82,23 +82,45 @@
   <main class="cv">
     <br>
     <div class="cv__layout">
-      <nav class="cv__toc" aria-label="Quick index">
-        <strong>Jump to:</strong>
-        <ul>
-          <li><a href="#languages">Languages</a></li>
-          <li><a href="#employment">Employment &amp; Academics</a></li>
-          <li><a href="#independent-development">Independent Projects</a></li>
-          <li><a href="#qualifying-exams">Qualifying Exams</a></li>
-          <li><a href="#continuing-medical-education">Continuing Medical Education</a></li>
-          <li><a href="#technical-skills">Technical Skills</a></li>
-          <li><a href="#digital-skills">Software &amp; Systems Engineering</a></li>
-          <li><a href="#ai-skills">AI Engineering &amp; Medical AI</a></li>
-          <li><a href="#achievements">Achievements</a></li>
-          <li><a href="#presentations">Presentations &amp; Seminars</a></li>
-          <li><a href="#extracurricular">Extracurricular</a></li>
-          <li><a href="#community">Community Service</a></li>
-        </ul>
-      </nav>
+      <div class="cv__toc-slot">
+        <nav class="cv__toc" aria-label="Jump to sections">
+          <strong class="compass__original-label">Jump to:</strong>
+          <button class="compass__trigger" type="button" aria-expanded="false"
+                  aria-controls="compass-links" aria-label="Jump to sections" hidden>
+            <span class="compass__symbol" aria-hidden="true">◉</span>
+            <span class="compass__readout">
+              <span class="compass__context">Jump to sections</span>
+              <span class="compass__track" aria-hidden="true">
+                <span class="compass__track-fill"></span>
+              </span>
+            </span>
+            <span class="compass__percentage" aria-hidden="true">0%</span>
+            <span class="compass__chevron" aria-hidden="true">▾</span>
+          </button>
+          <ul id="compass-links">
+            <li><span class="compass__group-label">Clinical &amp; academic</span><a href="#languages">Languages</a></li>
+            <li><a href="#employment">Employment &amp; Academics</a></li>
+            <li><a href="#qualifying-exams">Qualifying Exams</a></li>
+            <li><a href="#continuing-medical-education">Continuing Medical Education</a></li>
+            <li><span class="compass__group-label">Research</span><a href="#key-skills">Key Skills</a></li>
+            <li><a href="#technical-skills">Technical Skills</a></li>
+            <li><a href="#presentations">Presentations &amp; Seminars</a></li>
+            <li><span class="compass__group-label">Engineering</span><a href="#independent-development">Independent Projects</a></li>
+            <li><a href="#digital-skills">Software &amp; Systems Engineering</a></li>
+            <li><a href="#ai-skills">AI Engineering &amp; Medical AI</a></li>
+            <li><a href="#whisper-training-work">↳ Whisper model training</a></li>
+            <li><span class="compass__group-label">More</span><a href="#achievements">Achievements</a></li>
+            <li><a href="#extracurricular">Extracurricular</a></li>
+            <li><a href="#community">Community Service</a></li>
+          </ul>
+          <div class="compass__tools" hidden>
+            <button class="compass__return" type="button" hidden>↩ Return</button>
+            <button class="compass__share" type="button">Copy section link</button>
+            <span class="compass__status" role="status" aria-live="polite"></span>
+          </div>
+        </nav>
+        <span class="compass__threshold" aria-hidden="true"></span>
+      </div>
 
       <div class="cv__content">
 
@@ -624,5 +646,6 @@
       }
     })();
   </script>
+  <script src="assets/reading-compass.js" defer></script>
 </body>
 </html>
