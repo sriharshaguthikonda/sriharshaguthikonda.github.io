@@ -95,6 +95,7 @@ strong{
 
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
+main.cv{ margin-top: 27px; }
 html{ scroll-behavior: smooth; }
 
 body{
@@ -144,7 +145,7 @@ a:focus{ outline:none; box-shadow: var(--ring); border-radius: 10px; }
   grid-template-columns: 180px 1fr;
   gap: 22px;
   align-items:start;
-  padding: 0 18px 24px;
+  padding: 28px 18px 24px;
   position: relative;
 }
 
@@ -1389,7 +1390,7 @@ strong {
     border-radius: 14px;
   }
   .cv__layout {
-    padding: 0 6px 18px;
+    padding: 28px 6px 18px;
     gap: 12px;
   }
   .cv__hero {
