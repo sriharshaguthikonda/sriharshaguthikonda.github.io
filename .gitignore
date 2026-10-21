@@ -22,3 +22,5 @@
 !.github/
 !.github/workflows/
 !.github/workflows/navigation.yml
+!docs/
+!docs/**
