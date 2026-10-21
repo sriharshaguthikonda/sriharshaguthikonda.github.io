@@ -431,9 +431,7 @@ p{ margin: 8px 0; color: rgba(245,247,255,.90); }
 .muted{ color: var(--muted); }
 
 /* Goals + Skills blocks look like cards */
-.cv__summary,
-.cv__skills,
-.media-card{
+.cv__summary{
   padding: 16px 16px;
   border-radius: var(--r2);
   border: 1px solid var(--border);
@@ -971,7 +969,7 @@ ul ul{ margin-top: 6px; }
   .cv__header{ background:#fff; border-bottom:1px solid #ddd; }
   h1{ color:#111; -webkit-text-fill-color:#111; background:none; }
   a{ color:#111; text-decoration:none; }
-  article,.cv__summary,.cv__skills{ box-shadow:none; background:#fff; border-color:#ddd; }
+  article,.cv__summary{ box-shadow:none; background:#fff; border-color:#ddd; }
   h2{ color:#111; }
   h2::before{ box-shadow:none; }
 }
@@ -1409,10 +1407,6 @@ strong {
   .cv__content article {
     padding-left: 12px;
     padding-right: 12px;
-  }
-  .cv__content .media-card,
-  .cv__content .cv__skills {
-    padding: 10px;
   }
   .cv__toc-slot > .cv__toc {
     padding: 10px;
