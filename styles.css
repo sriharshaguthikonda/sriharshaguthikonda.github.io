@@ -1123,7 +1123,7 @@ ul ul{ margin-top: 6px; }
  border-radius:14px;background:rgba(0,0,0,.25);
 }
 .workstation-build__image-link:focus-visible{outline:3px solid var(--accent);outline-offset:3px;}
-.workstation-build__image{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;}
+.workstation-build__image{display:block;width:100%;height:auto;aspect-ratio:1536/773;object-fit:contain;}
 .workstation-build__figure figcaption{margin-top:8px;color:var(--muted);font-size:.86rem;line-height:1.55;}
 @media print{.workstation-build__figure{max-width:420px;break-inside:avoid;}}
 
