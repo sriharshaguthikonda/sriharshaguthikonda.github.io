@@ -245,7 +245,7 @@ def generated_html(source: str) -> str:
             + "</a></li>"
         )
     lines.append(indent + "</ul>")
-    return source[:markup.start] + newline.join(lines) + source[markup.end:]
+    return source[:start_line] + newline.join(lines) + source[markup.end:]
 
 
 def validate(source: str) -> None:
