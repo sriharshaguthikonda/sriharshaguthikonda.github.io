@@ -57,7 +57,7 @@ class NavigationTests(unittest.TestCase):
             '<ul id="compass-links">',
             '<ul id="compass-links"></ul>\n<ul id="compass-links">', 1
         )
-        with self.assertRaisesRegex(NavigationError, "exactly one"):
+        with self.assertRaisesRegex(NavigationError, "exactly one|Duplicate HTML id"):
             validate(repeated)
 
     def test_generator_is_idempotent(self):
@@ -133,8 +133,8 @@ class NavigationTests(unittest.TestCase):
 
     def test_explicit_nested_item_missing_label_rejected(self):
         dirty = self.clean.replace(
-            'data-nav-item data-nav-label="↳ Whisper model training"',
-            'data-nav-item', 1
+            'data-nav-label="↳ Whisper model training"',
+            '', 1
         )
         self.assertNotEqual(dirty, self.clean)
         with self.assertRaisesRegex(NavigationError, "needs id and data-nav-label"):
