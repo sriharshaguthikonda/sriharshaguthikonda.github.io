@@ -145,7 +145,7 @@ class NavigationMarkup(HTMLParser):
         self.item: dict | None = None
         self.collect: str | None = None
 
-    def offset(self) -> int:
+    def absolute_pos(self) -> int:
         line, column = self.getpos()
         return self.line_offsets[line - 1] + column
 
@@ -157,7 +157,7 @@ class NavigationMarkup(HTMLParser):
                 if self.matches != 1 or self.depth:
                     raise NavigationError('Expected exactly one <ul id="compass-links">')
                 self.depth = 1
-                self.start = self.offset()
+                self.start = self.absolute_pos()
             elif self.depth:
                 raise NavigationError("Nested lists are not valid navigation items")
             return
@@ -187,7 +187,7 @@ class NavigationMarkup(HTMLParser):
                 if self.item is not None:
                     raise NavigationError("Navigation item is not closed")
                 self.depth = 0
-                closing_gt = self.source.find(">", self.offset())
+                closing_gt = self.source.find(">", self.absolute_pos())
                 if closing_gt == -1:
                     raise NavigationError("Navigation list has no closing tag")
                 self.end = closing_gt + 1
