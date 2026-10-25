@@ -39,6 +39,33 @@ class _ListStructureParser(HTMLParser):
             self.stack.pop()
 
 
+class _InteractiveMarkup(HTMLParser):
+    """Inspect attributes and section nesting independently of formatting."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.in_key_skills = False
+        self.key_skills_article = False
+        self.accessible_poster = False
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if tag == "section" and attributes.get("id") == "key-skills":
+            self.in_key_skills = True
+        elif tag == "article" and self.in_key_skills:
+            self.key_skills_article = True
+        if "data-open-full" in attributes:
+            self.accessible_poster = (
+                self.accessible_poster
+                or (attributes.get("tabindex") == "0"
+                    and attributes.get("role") == "button")
+            )
+
+    def handle_endtag(self, tag):
+        if tag == "section" and self.in_key_skills:
+            self.in_key_skills = False
+
+
 class ListStructureTests(unittest.TestCase):
     def test_no_content_elements_directly_inside_ul(self):
         parser = _ListStructureParser()
@@ -48,7 +75,9 @@ class ListStructureTests(unittest.TestCase):
 
 class CardArchitectureTests(unittest.TestCase):
     def test_key_skills_is_an_article_card(self):
-        self.assertIn('<section id="key-skills" data-nav-group="Overview">', HTML)
+        parser = _InteractiveMarkup()
+        parser.feed(HTML)
+        self.assertTrue(parser.key_skills_article, "Key Skills must contain an article")
         self.assertNotIn("cv__skills", HTML)
 
     def test_media_card_has_no_own_rule_block(self):
@@ -99,7 +128,9 @@ class InteractionTests(unittest.TestCase):
         self.assertIn("lastOpener", HTML)
 
     def test_poster_opener_is_keyboard_reachable(self):
-        self.assertIn('data-open-full tabindex="0" role="button"', HTML)
+        parser = _InteractiveMarkup()
+        parser.feed(HTML)
+        self.assertTrue(parser.accessible_poster, "Poster must be keyboard accessible")
 
     def test_featured_iframe_has_descriptive_title(self):
         self.assertIn('title="Comparison of tools for CRISPR knockout screen analysis', HTML)

@@ -18,8 +18,47 @@ class NavigationTests(unittest.TestCase):
         cls.clean = generated_html(cls.source)
 
     def test_committed_navigation_is_up_to_date(self):
+        # A browser-valid HTML format change must not fail semantic CI.
         validate(self.source)
-        self.assertEqual(self.source, self.clean)
+        self.assertEqual(actual_targets(self.source),
+                         [entry.id for entry in document_entries(self.source)])
+
+    def test_editor_multiline_and_reordered_attributes(self):
+        edited = self.clean.replace(
+            '<ul id="compass-links">',
+            '<ul class="toc"\n id="compass-links">', 1
+        ).replace(
+            '<a href="#employment">',
+            '<a class="jump"\n data-test="wrapped"\n href="#employment">', 1
+        ).replace(
+            '>Research Mission</a>',
+            '>Research\n    Mission</a>', 1
+        )
+        self.assertNotEqual(edited, self.clean)
+        validate(edited)
+        self.assertEqual(actual_targets(edited), actual_targets(self.clean))
+        self.assertEqual(generated_html(edited), self.clean)
+
+    def test_navigation_label_drift_is_rejected(self):
+        dirty = self.clean.replace('>Key Skills</a>', '>Wrong Label</a>', 1)
+        with self.assertRaisesRegex(NavigationError, "label/group differs"):
+            validate(dirty)
+
+    def test_navigation_group_drift_is_rejected(self):
+        dirty = self.clean.replace(
+            '<span class="compass__group-label">Overview</span>',
+            '<span class="compass__group-label">Wrong group</span>', 1
+        )
+        with self.assertRaisesRegex(NavigationError, "label/group differs"):
+            validate(dirty)
+
+    def test_multiple_navigation_lists_rejected(self):
+        repeated = self.clean.replace(
+            '<ul id="compass-links">',
+            '<ul id="compass-links"></ul>\n<ul id="compass-links">', 1
+        )
+        with self.assertRaisesRegex(NavigationError, "exactly one|Duplicate HTML id"):
+            validate(repeated)
 
     def test_generator_is_idempotent(self):
         self.assertEqual(generated_html(self.clean), self.clean)
@@ -94,8 +133,8 @@ class NavigationTests(unittest.TestCase):
 
     def test_explicit_nested_item_missing_label_rejected(self):
         dirty = self.clean.replace(
-            'data-nav-item data-nav-label="↳ Whisper model training"',
-            'data-nav-item', 1
+            'data-nav-label="↳ Whisper model training"',
+            '', 1
         )
         self.assertNotEqual(dirty, self.clean)
         with self.assertRaisesRegex(NavigationError, "needs id and data-nav-label"):
