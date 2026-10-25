@@ -19,12 +19,6 @@ from dataclasses import dataclass
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_HTML = ROOT / "index.html"
-TOC_RE = re.compile(
-    r'(?P<indent>^[ \t]*)<ul[ \t]+id=["\x27]compass-links["\x27][^>]*>'
-    r'[\s\S]*?^[ \t]*</ul>',
-    re.MULTILINE,
-)
-NAV_HREF_RE = re.compile(r'<a[ \t]+href=["\x27]#([^"\x27]+)["\x27]')
 VALID_ID_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_:.\\-]*$")
 
 
@@ -130,22 +124,113 @@ def document_entries(source: str) -> list[NavEntry]:
     return result
 
 
-def toc_match(source: str) -> re.Match[str]:
-    matches = list(TOC_RE.finditer(source))
-    if len(matches) != 1:
-        raise NavigationError("Expected exactly one <ul id=\"compass-links\">")
-    return matches[0]
+class NavigationMarkup(HTMLParser):
+    """Parse navigation as HTML, including multiline and reordered attributes.
+
+    Record the exact <ul> span only for explicit regeneration. Validation
+    compares the rendered link structure rather than source formatting.
+    """
+
+    def __init__(self, source: str) -> None:
+        super().__init__(convert_charrefs=True)
+        self.source = source
+        self.line_offsets = [0]
+        for line in source.splitlines(keepends=True):
+            self.line_offsets.append(self.line_offsets[-1] + len(line))
+        self.matches = 0
+        self.depth = 0
+        self.start = -1
+        self.end = -1
+        self.entries: list[NavEntry] = []
+        self.item: dict | None = None
+        self.collect: str | None = None
+
+    def offset(self) -> int:
+        line, column = self.getpos()
+        return self.line_offsets[line - 1] + column
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        if tag == "ul":
+            if attributes.get("id") == "compass-links":
+                self.matches += 1
+                if self.matches != 1 or self.depth:
+                    raise NavigationError('Expected exactly one <ul id="compass-links">')
+                self.depth = 1
+                self.start = self.offset()
+            elif self.depth:
+                raise NavigationError("Nested lists are not valid navigation items")
+            return
+        if not self.depth:
+            return
+        if tag == "li":
+            if self.item is not None:
+                raise NavigationError("Nested navigation items are not supported")
+            self.item = {"href": None, "label": [], "group": []}
+        elif tag == "span" and self.item is not None and self.collect != "label":
+            classes = (attributes.get("class") or "").split()
+            if "compass__group-label" in classes:
+                self.collect = "group"
+        elif tag == "a":
+            if self.item is None or self.item["href"] is not None:
+                raise NavigationError("Each navigation item needs exactly one link")
+            self.item["href"] = attributes.get("href") or ""
+            self.collect = "label"
+
+    def handle_data(self, data: str) -> None:
+        if self.item is not None and self.collect:
+            self.item[self.collect].append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "ul":
+            if self.depth:
+                if self.item is not None:
+                    raise NavigationError("Navigation item is not closed")
+                self.depth = 0
+                closing_gt = self.source.find(">", self.offset())
+                if closing_gt == -1:
+                    raise NavigationError("Navigation list has no closing tag")
+                self.end = closing_gt + 1
+            return
+        if not self.depth:
+            return
+        if tag == "a" and self.collect == "label":
+            self.collect = None
+        elif tag == "span" and self.collect == "group":
+            self.collect = None
+        elif tag == "li":
+            if self.item is None or self.item["href"] is None:
+                raise NavigationError("Navigation item has no link")
+            href = self.item["href"]
+            if not href.startswith("#"):
+                raise NavigationError("Navigation links must point to page anchors")
+            label = " ".join("".join(self.item["label"]).split())
+            group = " ".join("".join(self.item["group"]).split())
+            self.entries.append(NavEntry(href[1:], label, group))
+            self.item = None
+            self.collect = None
+
+
+def navigation_markup(source: str) -> NavigationMarkup:
+    parser = NavigationMarkup(source)
+    parser.feed(source)
+    parser.close()
+    if parser.matches != 1 or parser.depth or parser.end < 0:
+        raise NavigationError('Expected exactly one closed <ul id="compass-links">')
+    return parser
 
 
 def actual_targets(source: str) -> list[str]:
-    block = toc_match(source).group(0)
-    return NAV_HREF_RE.findall(block)
+    return [item.id for item in navigation_markup(source).entries]
 
 
 def generated_html(source: str) -> str:
-    match = toc_match(source)
+    markup = navigation_markup(source)
     newline = "\r\n" if "\r\n" in source else "\n"
-    indent = match.group("indent")
+    start_line = source.rfind("\n", 0, markup.start) + 1
+    indent = source[start_line:markup.start]
+    if indent.strip():
+        raise NavigationError("Navigation list must begin on its own line")
     lines = [indent + '<ul id="compass-links">']
     for item in document_entries(source):
         group = (
@@ -160,26 +245,27 @@ def generated_html(source: str) -> str:
             + "</a></li>"
         )
     lines.append(indent + "</ul>")
-    new_block = newline.join(lines)
-    return source[:match.start()] + new_block + source[match.end():]
+    return source[:markup.start] + newline.join(lines) + source[markup.end:]
 
 
 def validate(source: str) -> None:
-    entries = document_entries(source)
-    target_order = [item.id for item in entries]
-    actual_order = actual_targets(source)
-    if actual_order != target_order:
+    expected = document_entries(source)
+    actual = navigation_markup(source).entries
+    expected_order = [item.id for item in expected]
+    actual_order = [item.id for item in actual]
+    if actual_order != expected_order:
         raise NavigationError(
             "Jump to order, coverage or nesting differs from the page.\n"
-            "  Expected: " + ", ".join(target_order) + "\n"
+            "  Expected: " + ", ".join(expected_order) + "\n"
             "  Actual:   " + ", ".join(actual_order)
         )
-    expected = generated_html(source)
-    if source != expected:
-        raise NavigationError(
-            "Navigation link labels or visual groups are stale. "
-            "Run: python scripts/sync_navigation.py --fix"
-        )
+    for item, wanted in zip(actual, expected):
+        if (item.label, item.group) != (wanted.label, wanted.group):
+            raise NavigationError(
+                "Navigation label/group differs for #" + item.id
+                + ": expected " + repr((wanted.label, wanted.group))
+                + ", actual " + repr((item.label, item.group))
+            )
 
 
 def main(argv: list[str] | None = None) -> int:
